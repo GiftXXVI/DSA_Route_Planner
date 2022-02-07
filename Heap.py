@@ -6,35 +6,35 @@ class MinHeap(object):
     def extend(self):
         length = len(self.heap)
         arr = [self.heap[i] for i in range(length)]
-        self.heap = [None for i in range(2*length)]
+        self.heap = [None for i in range(2 * length)]
         for i in range(length):
             self.heap[i] = arr[i]
 
     def get_parent(self, index) -> tuple:
-        parent_index = index//2
+        parent_index = index // 2
         return self.heap[parent_index], parent_index
 
     def get_left_child(self, index) -> tuple:
-        left_index = 2*index
+        left_index = 2 * index
         return self.heap[left_index], left_index
 
     def has_left_child(self, index) -> bool:
-        left_index = 2*index
+        left_index = 2 * index
         if self.heap[left_index] is not None:
             return True
         return False
 
     def get_right_child(self, index) -> tuple:
-        right_index = 2*index+1
+        right_index = 2 * index + 1
         return self.heap[right_index], right_index
 
     def has_right_child(self, index) -> bool:
-        right_index = 2*index+1
+        right_index = 2 * index + 1
         if self.heap[right_index] is not None:
             return True
         return False
 
-    def find_min(self) -> Node:
+    def find_min(self) -> tuple:
         return self.heap[1]
 
     def insert(self, node) -> None:
@@ -82,7 +82,7 @@ class MinHeap(object):
 
         return
 
-    def extract_min(self) -> Node:
+    def extract_min(self) -> tuple:
         node = self.find_min()
         self.heap[1] = self.heap[self.size]
         self.heap[self.size] = None
