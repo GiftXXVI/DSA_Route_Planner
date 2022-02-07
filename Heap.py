@@ -45,7 +45,7 @@ class MinHeap(object):
         index = self.size + 1
         self.heap[index] = node
         parent, parent_index = self.get_parent(index)
-        while node[1] < parent[1]:
+        while node.cost < parent.cost:
             temp = parent
             self.heap[parent_index] = node
             self.heap[index] = parent
@@ -66,7 +66,7 @@ class MinHeap(object):
         if self.heap[index] is not None:
             if self.has_left_child(index):
                 left, left_index = self.get_left_child(index)
-                if self.heap[index][1] > left[1]:
+                if self.heap[index].cost > left.cost:
                     temp = self.heap[index]
                     self.heap[index] = left
                     self.heap[left_index] = temp
@@ -74,7 +74,7 @@ class MinHeap(object):
 
             if self.has_right_child(index):
                 right, right_index = self.get_right_child(index)
-                if self.heap[index][1] > right[1]:
+                if self.heap[index].cost > right.cost:
                     temp = self.heap[index]
                     self.heap[index] = right
                     self.heap[right_index] = temp
