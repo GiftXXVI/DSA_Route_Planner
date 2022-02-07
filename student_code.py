@@ -1,6 +1,6 @@
 #Britannica, The Editors of Encyclopaedia. "distance formula". Encyclopedia Britannica, 29 Jan. 2015, #https://www.britannica.com/science/distance-formula. Accessed 7 February 2022.
 # Square root of√(a − c)2 + (b − d)2
-from Math import sqrt
+from math import sqrt
 import Heap
 
 def distance(origin,destination):
@@ -9,9 +9,16 @@ def distance(origin,destination):
     return sqrt(x+y)
     
 def shortest_path(M,start,goal):
-    heuristic = distance(M[start],M[goal])
+    heuristic_func = dict() 
+    heuristic_func[start] = distance(M[start],M[goal])
+    
     open_set = Heap.MinHeap(len(M))
     open_set.append((start,M[start]))
+    
+    came_from = dict()
+    
+    cost_func = dict()
+    cost_func[start] = 0
     
     print("shortest path called")
     return
