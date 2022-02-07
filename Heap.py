@@ -1,6 +1,7 @@
 class MinHeap(object):
     def __init__(self, size) -> None:
         self.heap = [None for i in range(size)]
+        self.keys = [None for i in range(size)]
         self.size = 0
 
     def extend(self):
