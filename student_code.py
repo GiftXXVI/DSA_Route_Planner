@@ -60,7 +60,8 @@ def shortest_path(M, start, goal) -> list:
             solutions[cost] = build_path(priors, current, start)
             # return build_path(priors, current, start)
         else:
-            for neighbor in range(len(M.roads[current.index])):
+            size = len(M.roads[current.index])
+            for neighbor in range(size):
                 # nb_index is short for neighbor index
                 nb_index = M.roads[current.index][neighbor]
                 cost = c_function[current.index] + distance(
@@ -77,5 +78,4 @@ def shortest_path(M, start, goal) -> list:
                             h_function[nb_index])
                         o_set.insert(n_neighbor)
     minimum = min(solutions.keys())
-    print(solutions)
     return solutions[minimum]
