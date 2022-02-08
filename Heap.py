@@ -1,3 +1,6 @@
+# From https://github.com/GiftXXVI/DSA_Show_Me_The_DS/blob/main/3_huffman_encoding.py. Accessed 7
+# February 2022. *** This is my own submission for a previous project in
+# this course ***
 class MinHeap(object):
     def __init__(self, size) -> None:
         self.heap = [None for i in range(size)]
