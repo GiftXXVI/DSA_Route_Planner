@@ -25,7 +25,9 @@ def distance(origin, destination) -> float:
 
 '''
 This implementation of the A* Algorithm uses the Euclidean Distance
-as its heuristic function.
+as its heuristic function. The Euclidean Distance (straight line distance) is
+suitable for calculating distance in a 2 dimensional coordinate system where
+motion is unrestricted in all directions. The code is provided above.
 
 Other options include:
 
