@@ -20,15 +20,13 @@ def distance(origin, destination):
     return math.sqrt(delta_x + delta_y)
 
 
-def build_path(priors, current):
-    keys = set(priors.keys())
-    values = set(priors.values())
-    diff = keys.difference(values)
-    find = diff.pop()
+def build_path(priors, current, start):
     result = list()
-    while priors[find]:
-        result.append(find)
-        find = priors[find]
+    curr = current.index
+    result.append(curr)
+    while curr != start:
+        result.append(priors[curr])
+        curr = priors[curr]
 
     return result
 
@@ -52,23 +50,23 @@ def shortest_path(M, start, goal):
     while o_set.get_size() > 0:
         current = o_set.extract_min()  # heuristic/cost function choice critical here
         if current.index == goal:
-            return build_path(priors, current)
+            return build_path(priors, current, start)
 
         for neighbor in range(len(M.roads[current.index])):
+            nb_index = M.roads[current.index][neighbor]
             cost = c_function[current.index] + \
-                distance(M.intersections[current.index], M.intersections[neighbor])
-            if cost < c_function[neighbor]:
-                priors[neighbor] = current.index
-                c_function[neighbor] = cost
-                h_function[neighbor] = distance(
-                    M.intersections[neighbor], M.intersections[goal])
+                distance(M.intersections[current.index], M.intersections[nb_index])
+            if cost < c_function[nb_index]:
+                priors[nb_index] = current.index
+                c_function[nb_index] = cost
+                h_function[nb_index] = distance(
+                    M.intersections[nb_index], M.intersections[goal])
                 if neighbor not in o_set.keys:
                     # heuristic/cost function choice critical here
                     n_neighbor = Node(
-                        neighbor,
-                        c_function[neighbor] +
-                        h_function[neighbor])
+                        nb_index,
+                        c_function[nb_index] +
+                        h_function[nb_index])
                     o_set.insert(n_neighbor)
-                    print(o_set.heap)
 
     return []
