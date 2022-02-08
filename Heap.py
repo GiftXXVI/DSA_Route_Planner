@@ -1,7 +1,7 @@
 class MinHeap(object):
     def __init__(self, size) -> None:
         self.heap = [None for i in range(size)]
-        self.keys = [None for i in range(size)]
+        self.keys = dict()
         self.size = 0
 
     def extend(self):
@@ -41,13 +41,14 @@ class MinHeap(object):
     def insert(self, node) -> None:
         if self.size == 0:
             self.heap[1] = node
+            self.keys[node.index] = node.index
             self.size = 1
             return
         index = self.size + 1
         self.heap[index] = node
         parent, parent_index = self.get_parent(index)
         while node.cost < parent.cost:
-            temp = parent
+            # temp = parent, remove if no effect detected at runtime
             self.heap[parent_index] = node
             self.heap[index] = parent
             index = parent_index

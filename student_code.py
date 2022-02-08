@@ -17,15 +17,24 @@ def distance(origin, destination):
     return math.sqrt(delta_x + delta_y)
 
 
-def build_path():
-    pass
+def build_path(priors, current):
+    keys = set(priors.keys())
+    values = set(priors.values())
+    diff = keys.difference(values)
+    find = diff.pop()
+    result = list()
+    while priors[find]:
+        result.append(find)
+        find = priors[find]
+
+    return result
 
 
 def shortest_path(M, start, goal):
     h_function = dict()
     h_function[start] = distance(M.intersections[start], M.intersections[goal])
 
-    o_set = Heap.MinHeap(len(M))
+    o_set = Heap.MinHeap(len(M.intersections))
     # check if heuristic/cost function to be used here
     n_start = Node(start, h_function[start])
     o_set.insert(n_start)
@@ -48,10 +57,9 @@ def shortest_path(M, start, goal):
                 c_function[neighbor] = cost
                 h_function[neighbor] = c_function[neighbor] + \
                     distance(M.intersections[neighbor], M.intersections[goal])
-                if neighbor not in o_set.heap:  # fix condition
+                if neighbor not in o_set.keys:
                     # heuristic/cost function choice critical here
                     n_neighbor = Node(neighbor, h_function[neighbor])
                     o_set.insert(n_neighbor)
 
-    print("shortest path called")
-    return
+    return []
